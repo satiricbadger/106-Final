@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <title>Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Profile_Style.css')}}">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+    <header>
+        Universitoria
+    </header>
+        <h1 id="USER">{{name}}</h1>
+        <h1 class="fullname" ><button class="fullname"></button></h1>
+        <div id="space">
+
+            <button class="tablink">Your Classes</button>
+            <button class="getAll" >Add Classes</button>
+
+
+            <div id="profile" class="tabcontent">
+            </div>
+
+            <div id="Cataloged" class="tabcontent">
+            </div>
+            <div>
+                <table class="Header">
+                    <tr class="bg-info">
+                        <th>Class</th>
+                        <th>Teacher</th>
+                        <th>Time</th>
+                        <th>Capacity</th>
+                        <th>Add Class</th>
+                    </tr>
+                </table>
+                <table style="float: left" class = "content" id="gradeTable">
+
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+                <table style="float: left" class = "content" id="gradeTable1">
+
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+                <table style="float: left" class = "content" id="gradeTable2">
+
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+                <table  style="float: left" class = "content" id="gradeTable3">
+
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+                <table style="float: left" class = "content" id="gradeTable4">
+
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+            </div>
+
+
+
+
+                    <tbody id="data-output">
+<!--                        {% for key, value in data.items() %}-->
+                            <tr>
+                                <td class="col-md-2">{{ web_data[url_sequence].url }}</td>
+                                <td class="col-md-2">{{ web_data[url_sequence].name }}</td>
+                                <td class="col-md-2">{{ web_data[url_sequence].count }}</td>
+                            </tr>
+<!--                        {% endfor %}-->
+
+
+
+
+
+    </div>
+    <div id="Tracker"> </div>
+</body>
+ <script src ="{{ url_for('static', filename='functions.js')}}"></script>
+</html>
