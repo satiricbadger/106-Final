@@ -114,6 +114,23 @@ with app.app_context():
         return posts
 
     #Show all threads -> This is just making a new link, showing the post, and then including the ability to make a forumReply
+    @app.route('/thread/<string:id>')
+    def threads(id):
+        #Render the html and call the post id?
+        #------------actual function below-------------------#
+        #Get the id of ForumPost that matches the id in the route. /thread/1 would load up the page with the first post.
+        threadPost = db.session.execute(db.select(ForumPost.text).where(ForumPost.id == id))
+        #ChunkedIterator is a pain, so we convert it into a dictionary.
+        threadDictionary = [dict(r) for r in threadPost.all()]
+        #Iterate
+        for threadDict in threadDictionary:
+            threadDict["text"]
+        return threadDict["text"]
+
+
+    #In the thread, you can call this method to pull up the replies in each of the threads.
+
+
     #Allow user to reply to a post.
 
     #Allow user to upvote a post
