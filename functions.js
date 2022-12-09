@@ -145,5 +145,22 @@ $(document).ready(function(){
 
         };
     });
+    $(".postReply").click(function(){
+        var username, text, tags,threadID;
+        tags = ""
+        username = String($('#username').val());
+        threadID = String($('#threadID').val());
+        text = String($('#forumReply').val())
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "https://ansony3.pythonanywhere.com/" + encodeURIComponent(username) +"/"+ encodeURIComponent(threadID) + "/forumReply" );
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        const body = {"username": username,"tags": tags.length==0?"none" : tags.substring(0, tags.length -1), "text": text };
+        xhttp.send(JSON.stringify(body));
+        xhttp.onload = function() {      
+
+        };        
+
+
+    })
 
 });

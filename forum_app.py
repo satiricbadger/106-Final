@@ -9,6 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from datetime import datetime
+from enum import Enum
 import sys
 import json
 
@@ -50,6 +51,11 @@ with app.app_context():
         score = db.Column(db.Integer, nullable = True) #This shows upvote and downvote.
         recipient = db.Column(db.String(500), nullable = False) #This should show the person you are replying to
 
+    class Topic(Enum):
+        videogames = 1
+        anime = 2
+        none = 3
+
     #Initialize database and classes
     db.create_all()
     admin.add_view(ModelView(Users, db.session))
@@ -86,8 +92,8 @@ with app.app_context():
 
     #Allow user to make a post on a forum board.
     #When sending an AJAX request, please send in: username: , text: , tags:
-    @app.route('/<string:username>/<string:forum>/post', methods = ['GET','POST'])
-    def PostOnForum(username,forum):
+    @app.route('/<string:username>/post', methods = ['GET','POST'])
+    def PostOnForum(username):
         #Query all users & content from the post method.
         contents = request.get_json(silent=True)
         userPost = Users.query.all()
@@ -97,7 +103,7 @@ with app.app_context():
         if(result.first().userID == username):
             #Start the post operation.
             #Create new forum thread/post using the ForumPost class.
-            db.session.add(ForumPost(userID = contents["username"], text = contents["text"], tag = "none", time = datetime.now(), score = 0))
+            db.session.add(ForumPost(userID = contents["username"], text = contents["text"], tag = contents["tags"] , time = datetime.now(), score = 0))
             #Commit to forum's database.
             db.session.commit()
 
@@ -113,8 +119,8 @@ with app.app_context():
             posts[i.id] = i.text
         return posts
 
-    #Show all threads -> This is just making a new link, showing the post, and then including the ability to make a forumReply
-    @app.route('/thread/<string:id>')
+    #Show threads -> This is just making a new link, showing the post, and then including the ability to make a forumReply
+    @app.route('/getThread/<string:id>',methods = ['GET'])
     def threads(id):
         #Render the html and call the post id?
         #------------actual function below-------------------#
@@ -128,10 +134,35 @@ with app.app_context():
         return threadDict["text"]
 
 
-    #In the thread, you can call this method to pull up the replies in each of the threads.
+
 
 
     #Allow user to reply to a post.
+    @app.route('/<string:username>/<string:threadID>/forumReply', methods = ['POST']) #Username is the person sending the message, poster is the person who will receive the response
+    def ReplyToUser(username,threadID):
+        #Load up contents, from the frontend
+        contents = request.get_json(silent=True) #This is where the stuff from the textbox gets sent to.
+        #Make sure only valid users can post a reply...
+        result = db.session.execute(db.select(Users.userID).where(Users.userID == username))
+        #If the username from result matches the username argument, allow them to post the reply
+        if(result.first().userID == username):
+            #Start the post operation.
+            #Create a new thread reply using the ForumReply class.
+            db.session.add(ForumReply(userID = contents["username"], text = contents["text"], tag = "none" , time = datetime.now(), score = 0, recipient = threadID)) #Tag will be set to none, it actually has no purpose here.
+            #Commit to forum's database.
+            db.session.commit()
+
+        return "pass"
+
+    #This will show all of the replies for each thread!
+    @app.route('/showReply/<string:threadID>', methods = ['GET'])
+    def ShowThreadReplies(threadID):
+        #Find all replies to the thread ID.
+        result = db.session.execute( db.select(ForumReply.text).where(ForumReply.recipient == threadID))
+        replies = {}
+        for i in result:
+            replies[i.threadID] = i.text
+        return replies
 
     #Allow user to upvote a post
 
