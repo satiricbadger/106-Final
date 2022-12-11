@@ -10,6 +10,8 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from datetime import datetime
 from enum import Enum
+from urllib.parse import parse_qs
+from urllib.parse import urlparse
 import sys
 import json
 
@@ -111,12 +113,27 @@ with app.app_context():
         return ""
 
     #Show all posts.
-    @app.route('/showAllPosts', methods = ['GET'])
-    def getAllPosts():
+    @app.route('/showPosts', methods = ['GET'])
+    def getPosts():
+        animeURL = request.url
+        parsed_animeURL = urlparse(animeURL)
+        query_string = parsed_animeURL.query
+        query_var = parse_qs(query_string)
+        print(query_var)
+        if ("tag" in query_var  ):
+            taggedPost = query_var["tag"]
+        else:
+            taggedPost = ""
+
+        print(taggedPost)
+
         allPosts = ForumPost.query.all()
+        tag_var = taggedPost.pop()
         posts = {}
         for i in allPosts:
-            posts[i.id] = i.text
+            if (tag_var == "" or tag_var in i.tag):
+                posts[i.id] = i.text
+
         return posts
 
     #Show threads -> This is just making a new link, showing the post, and then including the ability to make a forumReply
@@ -157,14 +174,28 @@ with app.app_context():
     #This will show all of the replies for each thread!
     @app.route('/showReply/<string:threadID>', methods = ['GET'])
     def ShowThreadReplies(threadID):
-        #Find all replies to the thread ID.
-        result = db.session.execute( db.select(ForumReply.text).where(ForumReply.recipient == threadID))
+        #Queue up all of the forum replies.
+        threadReply = ForumReply.query.all()
         replies = {}
-        for i in result:
-            replies[i.threadID] = i.text
+        #From this class, we will find all of the replies that have the same threadID
+        #Add all replies that match.
+        for i in threadReply:
+            if(threadID == i.recipient):
+                replies[i.time] = i.text
         return replies
 
-    #Allow user to upvote a post
 
+    #Allow user to upvote a post -- RAN OUT OF TIME FOR DEVELOPMENT
+    #@app.route('/getThread/<string:id>/upvotePost', methods = ['PUT'])
+    #def upvotePost(id):
+    #    #Find the target post
+    #    contents = request.get_json(silent = True)
+    #    targetPost = ForumPost.query.filter_by(id=contents["postID"]).first()
+    #    targetScore = targetPost.score
+     #   #Make sure the post being upvoted is a valid post.
+     #   newScore = ForumPost.query.filter_by(id=contents["postID"]).update(dict(score = targetScore + 1) )
+    #    db.session.commit()
+
+        return ""
 
 

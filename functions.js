@@ -163,4 +163,17 @@ $(document).ready(function(){
 
     })
 
+    $(".upvote").click(function(){
+        var postID;
+        var xhttp = new XMLHttpRequest();
+        postID = String($('#postID').val());
+        xhttp.open("PUT", "https://ansony3.pythonanywhere.com/getThread/" + encodeURIComponent(threadID) + "/upvotePost");
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        const body = {"postID": postID};
+        xhttp.send(JSON.stringify(body));
+        xhttp.onload = function() {      
+
+        };
+    });
+
 });
