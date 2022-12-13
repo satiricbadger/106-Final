@@ -1,4 +1,4 @@
-from forum_app.py import *
+from forum_app import *
 
 from flask_login import current_user, login_required
 
@@ -13,10 +13,10 @@ def index():
     
     return redirect(url_for("login"))
 
-@app.route("/login", methods=["GET"])
-def login():
+@app.route("/signin", methods=["GET"])
+def signin():
     '''
-    Display the login page.
+    Display the sign-in page.
     '''
 
     if current_user.is_authenticated:
