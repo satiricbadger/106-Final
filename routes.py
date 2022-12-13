@@ -37,9 +37,12 @@ def register():
 
 @app.route("/app", methods=["GET"])
 @login_required
-def app():
+def application():
     '''
     Display the application to the user.
     '''
+
+    # This is called 'application' because naming it 'app'
+    # will trigger a namespace collision with Flask's 'app'
 
     return render_template("app.html")
