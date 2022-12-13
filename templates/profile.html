@@ -17,42 +17,7 @@
 
 <body>
 
-    <header>
-        Universitoria
-    </header>
-        <h1 id="USER">{{name}}</h1>
-    <h1><form action="/logout" method="POST">
-        <input id="vut" type="submit" value="Logout">
-    </form></h1>
-
-        <div id="space">
-
-            <button class="tablink" onclick="yourClass()">Your Classes</button>
-            <button class="tablink" onclick="getOffered()">Add Classes</button>
-
-
-            <div id="profile" class="tabcontent"></div>
-
-            <div id="Cataloged" class="tabcontent"></div>
-            <div>
-                <table class="Header">
-                    <thead>
-                        <tr class="bg-info">
-                            <th>Class</th>
-                            <th>Teacher</th>
-                            <th>Time</th>
-                            <th>Capacity</th>
-                            <th>Add Class</th>
-                        </tr>
-
-                        <tbody class = "content" id="data-output">
-
-                        </tbody>
-                    </thead>
-                </table>
-            </div> 
-        </div>
-    <div id="Tracker"> </div>
+<p>Profile</p>
 </body>
- <script src ="{{ url_for('static', filename='functions.js')}}"></script>
+
 </html>
