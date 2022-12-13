@@ -65,31 +65,6 @@ with app.app_context():
     admin.add_view(ModelView(ForumReply, db.session))
     admin.add_view(ModelView(forumID,db.session))
 
-
-
-
-    #Routing of website routes are below.
-    @app.route('/')#Login page
-    def login():
-        return "login page here"
-
-
-
-
-    @app.route('/register') #Show register page
-    def register():
-        return "register page here"
-
-    @app.route('/anime')
-    def anime():
-        #Queue all posts in with the anime tag.
-        return "anime forum page"
-
-    @app.route('/games')
-    def games():
-        #Queue all posts in with the games tag-
-        return "game forum page"
-
     #USER FUNCTIONS
 
     #Allow user to make a post on a forum board.
