@@ -49,8 +49,33 @@ def login():
 @login_required
 def logout():
     '''
-    Logs the user out and returns them to teh login page.
+    Logs the user out and returns them to the login page.
     '''
 
     logout_user()
     return render_template("login.html", loggedOut=True)
+
+    
+@app.route("/writepost", methods=["POST"])
+def writepost():
+    '''
+    Writes the requested post.
+    '''
+    Post.createpost(request.form["content"], current_user)
+    
+    return redirect(url_for("application"))
+
+@app.route("/upvote", methods=["POST"])
+def upvote():
+    '''
+    Upvotes the requested post. Currently, implementation of
+    a system that allows the users to upvote only once is
+    not possible.
+    '''
+
+    postID = request.form["id"]
+    post = Post.query.filter_by(id=postID).first()
+    post.upvote()
+    db.session.add(post)
+    db.session.commit()
+    return redirect(url_for("application"))
