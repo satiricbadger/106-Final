@@ -60,19 +60,52 @@ class Post(db.Model):
     __tablename__ = "post"
 
     # Define values for a post
-    id      = db.Column(db.Integer, primary_key=True)
+    id          = db.Column(db.Integer, primary_key=True)
     contents    = db.Column(db.String(400), unique=False, nullable=True)
+    tags        = db.Column(db.String(256), unique=False, nullable=True)
     author      = db.Column(db.String(256), unique=False, nullable=False)
     likes       = db.Column(db.Integer, unique=False, nullable=False)
 
-    def __init__(self, contents=None, tags=None, author='', likes=0):
+    def __init__(self, contents=None, tags='', author='', likes=0):
         '''
-        Constructor for a post
+        Constructor for a post.
         '''
 
         self.contents = contents
         self.tags = tags
         self.author = author
         self.likes = likes
+
+    def createpost(content: str, author: User):
+        '''
+        Creates a post with the specified content.
+        '''
+
+        taglist=''
+        if "#anime" in content and "#games" in content:
+            taglist = "both"
+        elif "#anime" in content:
+            taglist = "anime"
+        elif "#games" in content:
+            taglist = "games"
+
+        try:
+            post = Post(contents=content, tags=taglist, author=author.username, likes=0)
+            db.session.add(post)
+            db.session.commit()
+            print(post.tags)
+            return post
+        
+        except:
+            return False
+        
+        return False
+
+    def upvote(self):
+        '''
+        Raises the like count of a post by 1.
+        '''
+        self.likes = self.likes + 1
+        return self.likes
 
 

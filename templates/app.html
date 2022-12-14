@@ -9,20 +9,30 @@
     
         <title>Social App</title>
     
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css')}}" defer>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" defer>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="/static/js/functions.js" defer></script>
     
     </head>
 
 <body>
 
-    <!-- Side button: personal configuration -->
+    
     <div id="menu-container">
-        <a href="profile">
+
+        <!-- Side button: original timeline -->
+        <a href="app">
+            <div class="menu-button" id="write-button">
+                <img src="{{ url_for('static', filename='svg/write-icon.svg') }}">
+            </div>
+        </a>
+
+        <!-- Side button: personal configuration -->
+        <!--<a href="profile">
             <div class="menu-button">
                 <img src="{{ url_for('static', filename='svg/person-icon.svg') }}">
             </div>
-        </a>
+        </a>-->
 
         <!-- Side button: logout -->
         <a href="logout">
@@ -30,21 +40,47 @@
                 <img src="{{ url_for('static', filename='svg/logout-icon.svg') }}">
             </div>
         </a>
+
     </div>
 
     <!-- Main feed -->
     <div class="body">
-        <div class="search-container">
-            <span class="search-bar">
-                <img src="{{ url_for('static', filename='svg/tag-icon.svg') }}"><input class="search-field" type="text" id="tagquery", name="tagquery">
-            </span>
-            <span class="search-button">
-                <p>search</p>
-            </span>
-        </div>
+
+        <form action="/writepost" method="POST">
+
+            <h3 class="login-field">Have something to share? Write your message below.</h3>
+            <input class="login-form" type="text" id="content", name="content"></br>
+        
+            <button class="login-button" id="write-post">post to forum</button>
+
+        </form>
+
+        <h3>Looking for something specific? Check out the following categories:</h3>
+        <a href="search-anime"><span class="anime-tag">anime</span></a>
+        <a href="search-games"><span class="game-tag">games</span></a>
 
         <div class="feed">
             <!-- User-generated posts go here -->
+
+			{% for post in posts %}
+                <div class="post">
+
+                    <form action="/upvote" method="POST">
+
+                        <input type="hidden" id="id" name="id" value="{{ post.id }}">
+                        <button class="post-likes">{{ post.likes }}</button>
+
+                    </form>
+
+				    <p class="post-author">{{ post.author }}</p>
+                    
+                    <div class="post-tags">{{ post.tags }}</div>
+
+                    <p class="post-contents">{{ post.contents }}</p>
+                    <hr>
+                </div>
+			{% endfor %}
+
         </div>
 
     </div>
