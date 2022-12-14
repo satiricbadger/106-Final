@@ -11,7 +11,7 @@ def index():
     if current_user.is_authenticated:
         return redirect(url_for("app"))
     
-    return redirect(url_for("login"))
+    return redirect(url_for("signin"))
 
 @app.route("/signin", methods=["GET"])
 def signin():
