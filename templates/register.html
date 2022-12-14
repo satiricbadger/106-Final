@@ -8,16 +8,29 @@
     
         <title>Profile</title>
     
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Profile_Style.css')}}" defer>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css')}}" defer>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src ="{{ url_for('static', filename='functions.js')}}" defer></script>
-    
     
     </head>
 
 <body>
+    <div class="body">
 
-    <p>Register</p>
+        <div class="login-header">
+            <p class="login-notice">Already have an account? Sign in here.</p>
+            <a href="signin"><button class="switch-button">sign in</button></a>
+        </div>
+
+        <h1>Nice to meet you!</h1>
+        <p class="login-text">Fill out the fields below to get started.</p>
+        <h3 class="login-field">Username</h3>
+        <input class="login-form" type="text" id="username", name="username"></br>
+
+        <h3 class="login-field">Password</h3>
+        <input class="login-form" type="password" id="password", name="password"></br>
+        
+        <button class="login-button" id="register">register</button>
+    </div>
 
 </body>
 
