@@ -2,21 +2,42 @@
 
 <html lang="en-US">
 
-<head>
+    <head>
 
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-    <title>Social App</title>
-
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" defer>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src ="{{ url_for('static', filename='functions.js') }}" defer></script>
-
-</head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+        <title>Social App</title>
+    
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css')}}" defer>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    </head>
 
 <body>
 
-<a href=""><p>Click here to configure personal settings.</p></a>
+    <!-- Side button: personal configuration -->
+    <div id="menu-container">
+        <a href="profile">
+            <div class="menu-button">
+                <img src="{{ url_for('static', filename='svg/person-icon.svg') }}">
+            </div>
+        </a>
+
+        <!-- Side button: logout -->
+        <a href="logout">
+            <div class="menu-button">
+                <img src="{{ url_for('static', filename='svg/logout-icon.svg') }}">
+            </div>
+        </a>
+    </div>
+
+    <!-- Main feed -->
+    <div class="body">
+
+
+    
+
+    </div>
 
 </body>

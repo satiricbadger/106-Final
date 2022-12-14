@@ -41,6 +41,34 @@ a:active {
     text-decoration: none;
 }
 
+/* Styling for main application page */
+
+#menu-container {
+    position: fixed;
+    right: 10%;
+}
+
+.menu-button {
+    position: relative;
+    margin-bottom: 30px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+
+    background-color: white;
+
+    border-radius: 100px;
+}
+
+.menu-button > img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 50%;
+    transform: translate(-50%, -50%);
+}
+
 /* Styling for sign-up and login pages */
 
 .login-header {
