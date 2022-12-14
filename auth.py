@@ -6,7 +6,7 @@ loginManager.init_app(app)
 loginManager.login_view = "login"
 
 @loginManager.user_loader
-def load_user(username: String):
+def load_user(username: db.String):
     '''
     Loads a user using their username.
     '''
@@ -30,7 +30,7 @@ def login():
     login_user(user)
     return redirect(url_for("application"))
 
-@app_route("/logout", methods=["GET"])
+@app.route("/logout", methods=["GET"])
 @login_required
 def logout():
     '''
