@@ -13,6 +13,15 @@ def index():
     
     return redirect(url_for("signin"))
 
+@app.route("/login", methods=["GET"])
+def login_redirect():
+    '''
+    GET method for login, not to be confused with the POST method.
+    Redirects to the sign-in page.
+    '''
+
+    return redirect(url_for("signin"))
+
 @app.route("/signin", methods=["GET"])
 def signin():
     '''
@@ -46,3 +55,12 @@ def application():
     # will trigger a namespace collision with Flask's 'app'
 
     return render_template("app.html")
+
+@app.route("/profile", methods=["GET"])
+@login_required
+def profile():
+    '''
+    Display the personal settings page.
+    '''
+
+    return render_template("profile.html")
