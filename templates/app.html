@@ -34,9 +34,18 @@
 
     <!-- Main feed -->
     <div class="body">
+        <div class="search-container">
+            <span class="search-bar">
+                <img src="{{ url_for('static', filename='svg/tag-icon.svg') }}"><input class="search-field" type="text" id="tagquery", name="tagquery">
+            </span>
+            <span class="search-button">
+                <p>search</p>
+            </span>
+        </div>
 
-
-    
+        <div class="feed">
+            <!-- User-generated posts go here -->
+        </div>
 
     </div>
 

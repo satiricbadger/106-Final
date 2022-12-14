@@ -41,7 +41,7 @@ a:active {
     text-decoration: none;
 }
 
-/* Styling for main application page */
+/* Styling for main application menu */
 
 #menu-container {
     position: fixed;
@@ -56,6 +56,7 @@ a:active {
     text-align: center;
 
     background-color: white;
+    box-shadow: 10px 10px 30px #C6D7F1;
 
     border-radius: 100px;
 }
@@ -67,6 +68,24 @@ a:active {
     width: 50%;
     height: 50%;
     transform: translate(-50%, -50%);
+}
+
+/* Styling for main application search bar */
+.search-container {
+    display: inline;
+}
+
+.search-bar {
+    display: float;
+    float: left;
+    padding: 10px;
+    background-color: #C6E6F9;
+    border-radius: 20px;
+}
+
+.search-bar > input {
+    position: relative;
+    width: 80%;
 }
 
 /* Styling for sign-up and login pages */
