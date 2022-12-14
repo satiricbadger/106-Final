@@ -1,17 +1,32 @@
 from forum_app import *
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 from flask_login import LoginManager, login_required, current_user, login_user, logout_user
 
 loginManager = LoginManager()
 loginManager.init_app(app)
 loginManager.login_view = "login"
 
+import time
+
 @loginManager.user_loader
-def load_user(username: db.String):
+def load_user(username: str):
     '''
     Loads a user using their username.
     '''
 
     return User.query.get(username)
+
+@app.route("/register", methods=["POST"])
+def signup():
+    '''
+    Registers the user with their given username and password.
+    '''
+
+    if User.signup(request.form["username"], request.form["password"]):
+        return redirect(url_for("application"))
+    else:
+        return render_template("register.html", failed=True)
 
 @app.route("/login", methods=["POST"])
 def login():

@@ -1,16 +1,5 @@
 from flask import *
 from flask_sqlalchemy import *
-from flask_admin import *
-from flask_login import *
-
-from datetime import datetime
-from enum import Enum
-
-from urllib.parse import parse_qs
-from urllib.parse import urlparse
-
-import sys
-import json
 
 #   Instantiates the app
 app = Flask(__name__)
@@ -19,7 +8,6 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.sqlite"
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 #admin = Admin(app, name='microblog', template_mode='bootstrap3')
-    
 
 #   Initialize database and classes
 db = SQLAlchemy(app)
@@ -32,6 +20,3 @@ from routes import *
 
 #   Add authentication
 from auth import *
-
-#   Runs the app locally
-app.run(host='127.0.0.1', port=5500, debug=True)
