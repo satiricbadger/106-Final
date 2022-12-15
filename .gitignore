@@ -1,0 +1,6 @@
+# Byte-compiled / optimized / DLL
+__pycache__/
+
+# Flask
+instance/
+.webassets-cache
